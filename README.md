@@ -1,6 +1,6 @@
 # Contensis Blazor Examples
 
-Projects with Blazor examples that display data from Contensis.
+Blazor projects that display data from Contensis.
 
 ## BlazorWebAssemblyApp
 
