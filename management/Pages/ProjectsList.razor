@@ -1,0 +1,38 @@
+﻿@page "/listprojects"
+@inherits ProjectsListBase
+
+<h3>List Projects</h3>
+
+@if (Projects == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Projects)
+            {
+            <tr>
+                <td>@project.Name</td>
+                <td>@project.Description</td>
+                <td>
+                    <a href="@($"projectinfo/{project.Id}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-info-circle">Info</i>
+                    </a>
+                    <a href="@($"projectedit/{project.Id}")" class="btn btn-primary table-btn">
+                        <i class="fas fa-edit">Edit</i>
+                    </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,71 @@
+@page "/entrydetail/{EntryId}"
+
+@inherits EntryDetailBase
+
+@if (Entry.Fields.Count > 0)
+{
+    <section class="entry-detail">
+
+        <h1 class="page-title">Details for entry @Entry.Fields["title"] (@Entry.Id)</h1>
+
+        <div class="col-12 row">
+            <div class="col-2">
+            </div>
+            <div class="col-10 row">
+                <div class="col-xs-12 col-sm-12">
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Id</label>
+                        <div class="col-sm-8">
+                            <label type="text" class="form-control-plaintext">@Entry.Id</label>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Title</label>
+                        <div class="col-sm-8">
+                            <label type="text" readonly class="form-control-plaintext">@Entry.Fields["title"]</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">String data</label>
+                        <div class="col-sm-8">
+                            <label type="text" readonly class="form-control-plaintext">@Entry.Fields["stringData"]</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Number data</label>
+                        <div class="col-sm-8">
+                            <label type="text" readonly class="form-control-plaintext">@Entry.Fields["numberData"]</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Boolean data</label>
+                        <div class="col-sm-8">
+
+                            @if (Boolean.Parse(Entry.Fields["booleanData"].ToString()))
+                            {
+                                <label type="text" readonly class="form-control-plaintext">Yes</label>
+                            }
+                            else
+                            {
+                                <label type="text" readonly class="form-control-plaintext">No</label>
+
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label class="col-sm-4 col-form-label">Date data</label>
+                        <div class="col-sm-8">
+                            <label type="text" readonly class="form-control-plaintext">@DateTime.Parse(Entry.Fields["dateData"].ToString()).ToShortDateString()</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+}

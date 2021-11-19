@@ -1,0 +1,61 @@
+﻿@page "/entries"
+
+@using Delivery.Data
+@using Zengenti.Data
+@using Zengenti.Contensis.Delivery;
+@using BlazorStrap
+
+@inject DeliveryService deliveryService
+
+<h1>Entries</h1>
+
+<p>This component demonstrates fetching entries from the .net delivery API.</p>
+
+@if (entries == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <BSTable IsStriped="true" >
+        <thead>
+            <tr>
+                <th>
+
+                </th>
+                <th>Title</th>
+                <th>Publish Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in entries.Items)
+            {
+                @*var coverImage = entry.Get<Image>("coverPhoto");
+
+
+                var image = "https://cms-develop.cloud.contensis.com/api/image/" + coverImage.Asset.Id + "?w=100&h=200&q=50&format=webp";
+                <tr>
+                    <td><img src="@image"></td>*@
+
+                <tr>
+                    <td><img src="/assets/259a477b-5cf9-4a38-a33e-fe7a562ec6f3.webp" /></td>
+                    <td><b>@entry.FieldData["entryTitle"]</b></td>
+                    <td>@entry.FieldData["publishDate"]</td>
+                </tr>
+            }
+        </tbody>
+    </BSTable>
+
+
+
+}
+
+@code {
+    private PagedList<Entry> entries;
+
+    protected override async Task OnInitializedAsync()
+    {
+        entries = await deliveryService.GetEntries();
+    }
+
+}

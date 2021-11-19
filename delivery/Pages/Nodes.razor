@@ -1,0 +1,54 @@
+﻿@page "/nodes"
+
+@using Delivery.Data
+@using Zengenti.Data
+@using Zengenti.Contensis.Delivery;
+@using BlazorStrap
+
+@inject DeliveryService deliveryService
+
+<h1>Nodes</h1>
+
+<p>This component demonstrates fetching nodes from the .net delivery API.</p>
+
+@if (nodes == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div>
+        <BSListGroup>
+            <BSListGroupItem>@nodes.Slug <BSBadge IsPill="true">@nodes.ChildCount</BSBadge></BSListGroupItem>
+        </BSListGroup>
+    </div>
+
+    <div style="padding-left:20px">
+        <BSListGroup>
+            @foreach (var node in nodes.Children())
+            {
+                <BSListGroupItem>@node.Slug <BSBadge IsPill="true">@node.ChildCount</BSBadge></BSListGroupItem>
+
+                @foreach (var childNode in node.Children())
+                {
+                    <div style="padding-left:20px">
+                        <BSListGroupItem >@childNode.Slug <BSBadge IsPill="true">@childNode.ChildCount</BSBadge></BSListGroupItem>
+                    </div>
+                }
+
+            }
+        </BSListGroup>
+    </div>
+
+}
+
+@code {
+    private Node nodes;
+
+    protected override async Task OnInitializedAsync()
+    {
+        nodes = await deliveryService.GetNodes();
+    }
+
+}
+

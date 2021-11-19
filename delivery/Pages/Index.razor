@@ -1,0 +1,58 @@
+﻿
+@using BlazorStrap
+@page "/"
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<BSProgress Value="25" Color="Color.Success" />
+<BSProgress Value="50" Color="Color.Info" />
+<BSProgress Value="75" Color="Color.Warning" />
+<BSProgress Value="100" Color="Color.Danger" />
+
+
+<div className="text-center">0%</div>
+<BSProgress />
+<div className="text-center">25%</div>
+<BSProgress Value="25" />
+<div className="text-center">50%</div>
+<BSProgress Value="50" />
+<div className="text-center">75%</div>
+<BSProgress Value="75" />
+<div className="text-center">100%</div>
+<BSProgress Value="100" />
+
+
+<BSToast IsVisible="@isVisible">
+    <BSToastHeader>I am Heading</BSToastHeader>
+    <BSToastBody>
+        <p>Test me</p>
+    </BSToastBody>
+</BSToast>
+
+<BSToast IsVisible="@isVisible">
+    <BSToastHeader>I am also Heading</BSToastHeader>
+    <BSToastBody>
+        Test Me
+    </BSToastBody>
+</BSToast>
+<BlazorButton @onclick="onclick">Toggle Toast Visibility</BlazorButton>
+
+@code {
+    private bool isVisible { get; set; } = true;
+
+    void onclick(MouseEventArgs e)
+    {
+        isVisible = !isVisible;
+        StateHasChanged();
+    }
+}
+
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<Counter IncrementAmount="10" />
+
+
+

@@ -1,0 +1,54 @@
+@page "/projects/{ProjectApiId}"
+
+@inherits ProjectInfoBase
+
+<h3>@ComponentTitle</h3>
+
+@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <p><em>@ErrorMessage</em></p>
+}
+
+@if (Project == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p><em>Name: </em>@Project.Name</p>
+    <p><em>Api ID: </em>@Project.Id</p>
+    <p><em>Description: </em>@Project.Description</p>
+    
+
+    @if (ContentTypes == null)
+    {
+        <p><em>No. of content types: </em>0</p>
+    }
+    else
+    {
+        <p><em>No. of content types: </em>@ContentTypes.Count()</p>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Api ID</th>
+                <th>Default Language</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var contentType in ContentTypes)
+            {
+                <tr>
+                    <td>@contentType.Id</td>
+                    <td>@contentType.DefaultLanguage</td>
+                    <td>
+                        <a href="@($"projects/{ProjectApiId}/contenttypes/{contentType.Id}")" class="btn btn-primary table-btn">
+                            <i class="fas fa-info-circle">Info</i>
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+}

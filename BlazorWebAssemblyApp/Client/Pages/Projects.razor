@@ -1,0 +1,40 @@
+@page "/projects"
+
+@inherits ProjectsBase
+
+<h1>Projects</h1>
+
+<p>This component demonstrates loading projects.</p>
+
+@if (Projects == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in Projects)
+            {
+                <tr>
+                    <td>@project.Id</td>
+                    <td>@project.Name</td>
+                    <td>@project.Description</td>
+                    <td>
+                        <a href="@($"projects/{project.Id}")" class="btn btn-primary table-btn">
+                                                <i class="fas fa-info-circle">Info</i>
+                                            </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

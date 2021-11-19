@@ -1,0 +1,63 @@
+﻿@page "/projectinfo"
+@page "/projectinfo/{ProjectApiId}"
+
+@inherits ProjectInfoBase
+
+<h3>@ComponentTitle</h3>
+
+@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <p><em>@ErrorMessage</em></p>
+}
+
+@if (Project == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p><em>Name: </em>@Project.Name</p>
+    <p><em>Api ID: </em>@Project.Id</p>
+    <p><em>UUID: </em>@Project.Uuid</p>
+    <p><em>Description: </em>@Project.Description</p>
+    <p><em>Primary Language: </em>@Project.PrimaryLanguage</p>
+    <p>
+        <em>Supported Languages: </em>
+        <ul>
+            @foreach (var supportedLanguage in Project.SupportedLanguages)
+            {
+                <li>@supportedLanguage</li>
+            }
+        </ul>
+    </p>
+    <p><em>No. of content types: </em>@ContentTypes?.Count</p>
+    <p><em>No. of entries: </em>@EntriesCount</p>
+    <p><em>Root node child count: </em>@RootNodeChildCount</p>
+
+    @if (ContentTypes != null)
+    {
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Api ID</th>
+                <th>Default Language</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var contentType in ContentTypes)
+            {
+                <tr>
+                    <td>@contentType.Id</td>
+                    <td>@contentType.DefaultLanguage</td>
+                    <td>
+                        <a href="@($"projectinfo/{ProjectApiId}/contenttypes/{contentType.Id}")" class="btn btn-primary table-btn">
+                            <i class="fas fa-info-circle">Info</i>
+                        </a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    }
+}

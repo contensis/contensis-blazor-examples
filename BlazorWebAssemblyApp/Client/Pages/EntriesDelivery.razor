@@ -1,0 +1,63 @@
+@page "/entriesDelivery"
+@using BlazorWebAssemblyApp.Shared
+@using BlazorWebAssemblyApp.Client.Services
+@using Zengenti.Contensis.Delivery
+
+<h1>Entries</h1>
+
+<p>This component demonstrates loading entries using the .NET delivery API.</p>
+
+@if (entries == null)
+{
+    <p>
+        <em>
+            <img src="/assets/index.svg" /><h2>Loading...</h2>
+            
+
+        </em>
+    </p>
+    <img src="https://media.tenor.com/images/1858e705f2635d0c58d9a82c0d94233e/tenor.gif" />
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Publish Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in entries)
+            {
+
+                var coverPhoto = entry.Fields["coverPhoto"];
+                var image = "https://cms-develop.cloud.contensis.com/api/image/" + coverPhoto + "?w=100&h=200&q=50&format=webp";
+
+                <tr>
+                    <td>
+                        <img src="@image" />
+                    </td>
+                    <td><b>@entry.Fields["entryTitle"]</b></td>
+                    <td>@entry.Fields["publishDate"]</td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+}
+
+@code {
+    private UiEntry[] entries;
+
+    [Inject]
+    public IDeliveryService DeliveryService { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        entries = await DeliveryService.ListEntries("website", "blazorDemo");
+    }
+
+}

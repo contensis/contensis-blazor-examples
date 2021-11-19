@@ -1,0 +1,43 @@
+@page "/entries"
+
+@inherits EntriesBase
+
+<h1>Entries</h1>
+
+<p>This component demonstrates loading entries.</p>
+
+@if (Entries == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Data</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Entries)
+            {
+            <tr>
+                <td>@entry.Id</td>
+                <td>@entry.Fields["title"]</td>
+                <td>@entry.Fields["stringData"] - @entry.Fields["numberData"] -  @entry.Fields["booleanData"] - @entry.Fields["dateData"]</td>                
+                <td>
+                    <a href="@($"entrydetail/{entry.Id}")" class="btn btn-primary table-btn">
+                        View
+                    </a>
+                    <a href="@($"entryedit/{entry.Id}")" class="btn btn-primary table-btn">
+                        Edit
+                    </a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}

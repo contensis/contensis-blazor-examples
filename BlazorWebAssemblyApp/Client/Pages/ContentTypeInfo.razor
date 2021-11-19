@@ -1,0 +1,42 @@
+﻿@page "/projects/{ProjectApiId}/contenttypes/{ContentTypeApiId}"
+
+@inherits ContentTypeInfoBase
+
+<h3>@ComponentTitle</h3>
+
+@if (!string.IsNullOrWhiteSpace(ErrorMessage))
+{
+    <p><em>@ErrorMessage</em></p>
+}
+
+@if (ContentType == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p><em>Api ID: </em>@ContentType.Id</p>
+    <p><em>Default Language: </em>@ContentType.DefaultLanguage</p>
+                                                              
+     @if (Entries != null)
+     {
+         <p><em>No. of entries: </em>@Entries.Length</p>
+         <table class="table">
+             <thead>
+             <tr>
+                 <th>Slug</th>
+                 <th>Version</th>
+             </tr>
+             </thead>
+             <tbody>
+             @foreach (var entry in Entries)
+             {
+                 <tr>
+                     <td>@entry.Slug</td>
+                     <td>@entry.Version</td>
+                 </tr>
+             }
+             </tbody>
+         </table>
+     }
+}

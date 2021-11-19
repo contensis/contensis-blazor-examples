@@ -1,0 +1,52 @@
+@page "/entryedit/{EntryId}"
+
+@inherits EntryEditBase
+
+@if (Entry.Fields.Count > 0)
+{
+    @if (!Saved)
+    {
+        <section class="entry-edit">
+
+            <h1 class="page-title">Edit entry @Entry.Fields["title"] (@Entry.Id)</h1>
+            <EditForm Model="@Entry" OnValidSubmit="@HandleValidSubmit">
+
+                <div class="form-group row">
+                    <label for="lastName" class="col-sm-3">Title: </label>
+                    <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@Title" placeholder="Enter title"></InputText>
+                </div>
+
+                <div class="form-group row">
+                    <label for="lastName" class="col-sm-3">String data: </label>
+                    <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@StringData" placeholder="Enter string"></InputText>
+                </div>
+
+                <div class="form-group row">
+                    <label for="longitude" class="col-sm-3">Number data: </label>
+                    <InputNumber id="longitude" class="form-control col-sm-8" @bind-Value="@NumberData"></InputNumber>
+                </div>
+
+                <div class="form-group row">
+                    <label for="smoker" class=" offset-sm-3">
+                        <InputCheckbox id="smoker" @bind-Value="@BooleanData"></InputCheckbox>
+                        &nbsp;Boolean data
+                    </label>
+                </div>
+
+                <div class="form-group row">
+                    <label for="birthdate" class="col-sm-3">Date data: </label>
+                    <InputDate id="birthdate" class="form-control col-sm-8" @bind-Value="@DateData" placeholder="Enter date"></InputDate>
+                </div>
+
+                <button type="submit" class="btn btn-primary edit-btn">Save entry</button>
+                <a class="btn btn-outline-primary" @onclick="@NavigateToEntries">Back to entries</a>
+            </EditForm>
+
+        </section>
+    }
+    else
+    {
+        <div class="alert @StatusClass">@Message</div>
+        <a class="btn btn-outline-primary" @onclick="@NavigateToEntries">Back to entries</a>
+    }
+}
